@@ -27,12 +27,14 @@ public class ListenersImplementation implements ITestListener {
 	public void onTestFailure(ITestResult result) {
 		WebDriverUtility WUTIL = new WebDriverUtility();
 		JavaUtility JUTIL = new JavaUtility();
-		String methodName =	result.getMethod().getMethodName()+JUTIL.getDateUsingCalendar();
+		String methodName =	
+		result.getMethod().getMethodName()+JUTIL.getDateUsingCalendar();
 		test.log(Status.FAIL, methodName+"is failed");
 		test.log(Status.FAIL, result.getThrowable());
 		
 		try {
-		String path =	WUTIL.screenShotCaptureMethod(BaseClass.driver, methodName);
+		String path =	
+			WUTIL.screenShotCaptureMethod(BaseClass.driver, methodName);
 		test.addScreenCaptureFromPath(path);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +56,8 @@ public class ListenersImplementation implements ITestListener {
 
 	public void onStart(ITestContext context) {
 	//basic configurations
-		ExtentSparkReporter htmlReport = new ExtentSparkReporter(".\\extentReport\\report-"
+		ExtentSparkReporter htmlReport = new ExtentSparkReporter
+				(".\\extentReport\\report-"
 				+new JavaUtility().getDateUsingCalendar()+".html");
 		htmlReport.config().setDocumentTitle("V tiger report");
 		htmlReport.config().setTheme(Theme.DARK);

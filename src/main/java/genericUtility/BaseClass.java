@@ -18,16 +18,18 @@ public class BaseClass {
 	public PropertiesUtility PUTIL = new PropertiesUtility();
 	public WebDriverUtility WUTIL =new WebDriverUtility();
 	public static WebDriver driver = null;
+
 	@BeforeSuite(alwaysRun = true)
 	public void dbConnection() throws Exception
 	{
 		DUTIL.establishConnection();
 		System.out.println("Database connection establish!!");
 	}
+	
 	@BeforeClass(alwaysRun = true)
 	public void launchBrowser() throws Exception
 	{
-	String URL =	PUTIL.getDataFromProperties("url");
+		String URL =	PUTIL.getDataFromProperties("url");
 		WebDriverManager.chromedriver().setup();
 		System.setProperty("webdriver.chrome.driver", ".\\src\\main\\resources\\chromedriver.exe");
 		driver = new ChromeDriver();
@@ -36,6 +38,7 @@ public class BaseClass {
 		WUTIL.maximizeWindow(driver);
 		System.out.println("browser launched successfully!!");
 	}
+
 	@BeforeMethod(alwaysRun = true)
 	public void loginOperation() throws Exception
 	{
@@ -45,6 +48,7 @@ public class BaseClass {
 	LP.loginOperation(USERNAME, PASSWORD);
 	System.out.println("Login successfull!!");
 	}
+	
 	@AfterMethod(alwaysRun = true)
 	public void logoutOperation()
 	{
@@ -52,12 +56,14 @@ public class BaseClass {
 		HP.logOutOperation(driver);
 		System.out.println("Logout successfull!!");
 	}
+	
 	@AfterClass(alwaysRun = true)
 	public void closeWindow()
 	{
 		driver.close();
 		System.out.println("window closed successfully!!");
 	}
+	
 	@AfterSuite(alwaysRun = true)
 	public void closeDbConnection() throws Exception
 	{
